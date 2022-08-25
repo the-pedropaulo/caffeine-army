@@ -1,0 +1,13 @@
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Helvetica, Arial;
+  overflow-y: hidden;
+}
+
+:root {
+  --branco: #FFFFFF;
+  --contornos: #E2E2E2;
+  --marrom-escuro: #271718;
+  --desativado: #BFBFBF;
+  --rosa: #FB637E;
+}
