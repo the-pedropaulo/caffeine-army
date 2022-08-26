@@ -1,30 +1,30 @@
-let BASE = "https://api.b7web.com.br/devsfood/api";
+let BASE = "http://localhost:3333";
 
 export default {
-    getCategories: async() => {
-        const res = await fetch(BASE+"/categories");
-        const json = await res.json();
+    getEnterprise: async(cnpj) => {
+        const res = await fetch(BASE+"/clients/"+cnpj);
 
-        return json;
+        if(res.status === 200 || res.status === 201) {
+            const json = await res.json();
+            
+            return json;
+        }
     },
-    getProducts: async (category, page, search) => {
-        let fields = {};
-        if(category !== 0) {
-            fields.category = category;
+    signIn: async (email, password) => {
+        const res = await fetch(BASE+"/auth/signin", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                email: email,
+                password: password
+            })
+        });
+        if(res.status === 200 || res.status === 201) {
+            const json = await res.json();
+            
+            return json;
         }
-
-        if(page > 0) {
-            fields.page = page;
-        }
-
-        if(search !== '') {
-            fields.search = search;
-        }
-
-        let queryString = new URLSearchParams(fields).toString();
-
-        const res = await fetch(BASE+'/products?'+queryString);
-        const json = await res.json();
-        return json;
     }
 }

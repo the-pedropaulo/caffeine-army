@@ -1,12 +1,9 @@
-import React, {useState} from 'react';
-import { Container, Logo,BoxActions, Action,SearchInput } from './styled';
+import React, {} from 'react';
+import { Container, Logo,BoxActions, Action} from './styled';
 import LogoutIcon from '@mui/icons-material/Logout';
 import StorefrontIcon from '@mui/icons-material/Storefront';
 
 export default ({search, handleSearch }) => {
-
-    const [actionActive, setActionActive] = useState();
-
    
 
     return ( 

@@ -5,7 +5,7 @@ width:100%;
 display: flex;
 flex-direction: column;
 `;
-export const Input = styled.input`  
+export const InputField = styled.input`  
 height: 48px;
 outline: none;
 border: 1px solid var(--rosa);

@@ -1,16 +1,18 @@
 import React from 'react';
-import {Input, Container } from './styled';
+import {InputField, Container } from './styled';
 
-export default ({label, placeholder, searchInput, paddingLeft}) => {
-
-
+const Input = ({label, placeholder, searchInput, paddingLeft, error, ...rest}, ref) => {
     return ( 
         <Container>
             {searchInput === false && (
                 <label style={{paddingLeft: paddingLeft, marginBottom: '10px'}}>{label}</label>               
             )
             }
-            <Input placeholder={placeholder} paddingLeft={paddingLeft}/> 
+            <InputField placeholder={placeholder} paddingLeft={paddingLeft} ref={ref}
+          {...rest}/> 
+            {error && <span>{error.message}</span>}
         </Container>
     );
 }
+
+export default React.forwardRef(Input);

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState} from 'react';
 import { 
     Container, 
     BoxContentArea,
@@ -14,6 +14,8 @@ import {
     SectionTitle
 } from './styled';
 
+import api from '../../../services/api'
+
 import Button from '../../../components/Form/Button';
 import Input from '../../../components/Form/Input';
 import CardInfo from '../../../components/CardInfo';
@@ -21,10 +23,40 @@ import CardData from '../../../components/CardData';
 
 import StorefrontIcon from '@mui/icons-material/Storefront';
 
+import { handleMaskCPF } from '../../../utils/masks'
 
 
+
+
+let searchTimer = null;
 
 export default () => {
+
+    const [search, setSearch] = useState('')
+    const [enterprise, setEnterprise] = useState({});
+
+    useEffect(() => {
+        clearTimeout(searchTimer)
+        searchTimer = setTimeout(() => {
+            (async () => {
+            
+                const formatSearch = search.replaceAll(".", "");
+                const midFormatSearch = formatSearch.replaceAll("/", "");
+                const lastFormatSearch = midFormatSearch.replaceAll("-", "");
+                console.log(lastFormatSearch);
+
+                try {
+                    const products_response = await api.getEnterprise(lastFormatSearch);
+                    if(products_response) {
+                        setEnterprise(products_response)
+                    }
+                } catch (error) {
+                    console.log(error)
+                }    
+            })()
+        }, 2000)
+       
+    }, [search])
 
     return (
         <Container>
@@ -33,7 +65,14 @@ export default () => {
                     <BoxSearchArea>
                         <SearchArea>
                             <IconSearch src={"/assets/search.svg"}/>
-                            <Input placeholder={"Digite um CNPJ"} searchInput={true} paddingLeft={"60px"}/>
+                            <Input
+                                placeholder={"Digite um CNPJ"} 
+                                searchInput={true} 
+                                paddingLeft={"60px"}
+                                onChange={(e) => setSearch(e.target.value)}
+                                value={search}
+                                onKeyPress={handleMaskCPF}
+                            />
                         </SearchArea>
                         <Button text={'Buscar loja'} height={"58px"} width={'200px'} isSearch={'75px'}/>
                     </BoxSearchArea>
@@ -53,11 +92,30 @@ export default () => {
 
                         <SectionTitle>DADOS CADASTRAIS</SectionTitle>
                         <CardInfo title={"Lojista"}> 
-                            <CardData options={['Nome', 'Telefone 1', 'E-mail', 'Telefone 2']} corresponding={['Pedro Paulo', '(28) 97424-8734', 'dsjhhd@gmail.com', '']}/>
+                            <CardData 
+                                options={['Nome', 'Telefone 1', 'E-mail', 'Telefone 2']} 
+                                corresponding={
+                                    [
+                                        enterprise.shopkeeperName, 
+                                        enterprise.shopkeeperPhone, 
+                                        enterprise.shopkeeperEmail, 
+                                        enterprise.shopkeeperPhoneOther
+                                    ]
+                                }/>
                         </CardInfo>
 
                         <CardInfo title={"Dados do Lojista"}> 
-                            <CardData options={['CNPJ', 'E-mail', 'Nome Fantasia', 'Telefone']} corresponding={['4024-54540.5455', 'peugdhaghd@jfhdhdgmai.com', 'Caffeine Army', '(28) 97424-8734']}/>
+                            <CardData 
+                                options={['CNPJ', 'E-mail', 'Nome Fantasia', 'Telefone', 'Razão Social']} 
+                                corresponding={
+                                    [
+                                        enterprise.cnpj, 
+                                        enterprise.email, 
+                                        enterprise.fantasyName, 
+                                        enterprise.phone,
+                                        enterprise.socialReason
+                                    ]
+                                }/>
                         </CardInfo>
 
     
