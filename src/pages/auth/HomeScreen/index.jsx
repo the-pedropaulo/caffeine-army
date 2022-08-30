@@ -20,6 +20,8 @@ import Button from '../../../components/Form/Button';
 import Input from '../../../components/Form/Input';
 import CardInfo from '../../../components/CardInfo';
 import CardData from '../../../components/CardData';
+import Modal from '../../../components/Modal'
+import ModalAlert from '../../../components/modals/ModalAlert';
 
 import StorefrontIcon from '@mui/icons-material/Storefront';
 
@@ -35,25 +37,37 @@ export default () => {
     const [enterprise, setEnterprise] = useState({});
     const [width] = useWindowSize();
 
+    const [modalStatus, setModalStatus] = useState(false);
+    const [modalData, setModalData] = useState({});
+
     useEffect(() => {
         clearTimeout(searchTimer)
-        searchTimer = setTimeout(() => {
-            (async () => {
-            
-                const formatSearch = search.replaceAll(".", "");
-                const midFormatSearch = formatSearch.replaceAll("/", "");
-                const lastFormatSearch = midFormatSearch.replaceAll("-", "");
-
-                try {
+        if(search !== '') {
+            searchTimer = setTimeout(() => {
+                (async () => {
+                
+                    const formatSearch = search.replaceAll(".", "");
+                    const midFormatSearch = formatSearch.replaceAll("/", "");
+                    const lastFormatSearch = midFormatSearch.replaceAll("-", "");
+    
                     const products_response = await api.getEnterprise(lastFormatSearch, token);
-                    if(products_response) {
+                    
+                    if(products_response !== undefined) {
+                        console.log(products_response)
                         setEnterprise(products_response)
+                    } else {
+                        console.log(products_response, 'aqui')
+                        setModalData({message: 'Erro ao realizar consulta!'});
+                        setModalStatus(true)
                     }
-                } catch (error) {
-                    console.log(error)
-                }    
-            })()
-        }, 2000)
+    
+                    setSearch('') 
+                })()
+            }, 2000)
+        } else {
+            return;
+        }
+        
        
     }, [search, token])
 
@@ -74,6 +88,16 @@ export default () => {
 
     return size;
   }
+
+    function handleCloseModal() {
+        setModalStatus(false);
+    }
+
+    function handleCloseModalAlternative(e) {
+        if(e.target.classList.contains('modalBg')) {
+            setModalStatus(false)
+        }
+    }
     
 
     return (
@@ -99,7 +123,7 @@ export default () => {
                         <BoxIcon>
                            <StorefrontIcon style={{color: 'rgb(137, 128, 187)', width: '46px', height: '46px'}}/>
                         </BoxIcon>
-                        <Title>LOJA DE SUPLEMENTOS 
+                        <Title>LOJA DE SUPLEMENTOS {''} 
                             {width > 780 && (
                             <TitleStyle>
                                 - LOJA DE SUPLEMENTOS LTDA.
@@ -146,7 +170,9 @@ export default () => {
                     
                 </ContentArea>
             </BoxContentArea>
-            
+            <Modal status={modalStatus} close={handleCloseModalAlternative}>
+                <ModalAlert data={modalData} close={handleCloseModal}/>
+            </Modal>
         </Container>
     );
 }

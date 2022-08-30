@@ -3,13 +3,13 @@ import {InputField, Container } from './styled';
 
 const Input = ({label, placeholder, searchInput, paddingLeft, error, ...rest}, ref) => {
     return ( 
-        <Container>
+        <Container>  
             {searchInput === false && (
-                <label style={{paddingLeft: paddingLeft, marginBottom: '10px'}}>{label}</label>               
+                <label style={{paddingLeft: paddingLeft, marginBottom: '10px'}} data-testid="lasGHDGSHDnn">{label}</label>               
             )
             }
             <InputField placeholder={placeholder} paddingLeft={paddingLeft} ref={ref}
-          {...rest}/> 
+          {...rest} data-testid="indHDHSkkfcj"/> 
             {error && <span style={{color: 'red', marginTop: '10px'}}>{error.message}</span>}
         </Container>
     );

@@ -16,6 +16,12 @@ background-color: var(--branco);
 padding: 25px 0px 25px 20px;
 border-bottom-left-radius: 15px;
 border-bottom-right-radius: 15px;
+border: 1px solid #e2e2e2;
+
+&:nth-child(1) {
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
 
 @media (max-width: 768px) {
     background-color: #f8f8f8;
@@ -35,6 +41,9 @@ border-top-right-radius: 15px;
 display: flex;
 justify-content: space-between;
 
+border: 1px solid #E2E2E2;
+
+
 @media (max-width: 768px) {
     background-color: transparent;
 
@@ -44,7 +53,7 @@ justify-content: space-between;
 
 
 export const Title = styled.h2`
-font-size: 18px;
+font-size: 22px;
 `;
 
 export const Arrow = styled.img`

@@ -11,11 +11,13 @@ export default {
             }
         });
 
-        if(res.status === 200 || res.status === 201) {
+        try {
             const json = await res.json();
-            
             return json;
+        } catch (error) {
+            return;
         }
+
     },
     signIn: async (email, password) => {
         const res = await fetch(BASE+"/auth/signin", {
@@ -28,10 +30,13 @@ export default {
                 password: password
             })
         });
-        if(res.status === 200 || res.status === 201) {
-            const json = await res.json();
+        
+        try {
+            const json = await res.json();      
+            return json;  
             
-            return json;
+        } catch (error) {
+            return;
         }
     }
 }

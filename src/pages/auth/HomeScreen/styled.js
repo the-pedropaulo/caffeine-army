@@ -63,7 +63,7 @@ justify-content: center;
 
 
 export const Title = styled.h2`
-
+font-size: 22px;
 @media (max-width: 768px) {
     font-size: 18px;
 }
@@ -122,6 +122,6 @@ padding-bottom: 40px;
 
 export const SectionTitle = styled.h2`
 margin-top: 40px;
-font-size: 18px;
+font-size: 24px;
 `;
 
