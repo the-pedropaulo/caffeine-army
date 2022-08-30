@@ -6,6 +6,7 @@ import StorefrontIcon from '@mui/icons-material/Storefront';
 import {useDispatch} from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
+
 export default () => {
     const dispatch = useDispatch();
     const history = useHistory();
@@ -13,7 +14,15 @@ export default () => {
 
     function handleLogoutClick() {
         dispatch({
-            type: 'LOGOUT'
+            type: 'LOGOUT',
+            payload: {
+                token: '',
+                name: '',
+                refresh_token: '',
+                first_login: '',
+                email: '',
+                role: '',
+            }
         })
         history.push("/");
     }
@@ -39,7 +48,7 @@ export default () => {
     return ( 
         <Container>
             <Logo src="/assets/logo.svg"></Logo>
-            
+
             <BoxActions>
                 <Action hasStyle={true} isMobile={width > 780 ? false : true}>
                     <StorefrontIcon/>

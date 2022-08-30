@@ -7,7 +7,7 @@ export default ({children, title, isDescription}) => {
       <Container isDescription={isDescription}>
         {title && (
         <BoxTitle>
-          <Title>{title}</Title>
+          <Title data-testid="tDHdjhgsa">{title}</Title>
           <Arrow src="/assets/arrow.svg"/>
         </BoxTitle>
         )}

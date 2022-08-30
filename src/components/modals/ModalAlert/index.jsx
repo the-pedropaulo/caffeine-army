@@ -4,7 +4,7 @@ import {
     ProductArea,
     ProductButtons
 } from './styled';
-import Button from '../../../components/Form/Button';
+import Button from '../../Form/Button';
 
 
 export default ({data, close}) => {

@@ -23,13 +23,12 @@ export default (state = initialState, action) => {
         case 'LOGOUT':
             return {
                 ...state, 
-                token: '',
-                name: '',
-                refresh_token: '',
-                first_login: '',
-                email: '',
-                role: '',
-
+                token: action.payload.token,
+                name: action.payload.name,
+                refresh_token: action.payload.refresh_token,
+                first_login: action.payload.first_login,
+                email: action.payload.email,
+                role: action.payload.role
             };
         default:
             return state;

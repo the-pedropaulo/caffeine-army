@@ -8,8 +8,7 @@ export default ({options, corresponding}) => {
         <ContentBox>
             {options.map((option, index) => (
                 <p key={index}><strong>{option}: </strong>{corresponding[index]}</p>
-            ))}
-          
+            ))}          
 
         </ContentBox>
       </Container>
