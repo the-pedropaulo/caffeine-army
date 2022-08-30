@@ -1,4 +1,4 @@
-import React, {} from 'react';
+import React, {useState } from 'react';
 import { 
     Container, 
     BoxContentArea,
@@ -20,6 +20,9 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 
+import {useDispatch} from 'react-redux'
+import Modal from '../../components/Modal'
+import ModalAlert from '../../components/modals/ModalAlert';
   
 const signUpSchemaStep1 = yup.object().shape({
     email: yup.string().required('O email é obrigatório'),
@@ -29,7 +32,10 @@ const signUpSchemaStep1 = yup.object().shape({
 
 
 export default () => {
+    const dispatch = useDispatch();
     const history = useHistory();
+    const [modalStatus, setModalStatus] = useState(false);
+    const [modalData, setModalData] = useState({});
 
     const signUpStep1Form = useForm({
         resolver: yupResolver(signUpSchemaStep1),
@@ -42,13 +48,36 @@ export default () => {
         try {
             const products_response = await api.signIn(signUpStep1Form.getValues("email"),  signUpStep1Form.getValues("password"));
             if(products_response) {
+                dispatch({
+                    type: 'LOGIN',
+                    payload: {
+                        token: products_response.accessToken,
+                        refresh_token: products_response.refreshToken,
+                        first_login: products_response.firstLogin,
+                        email: products_response.userDetails.email,
+                        role: products_response.userDetails.roleName,
+                        name: products_response.userDetails.name
+                    }
+                })
                 history.push("/adm");
+            } else {
+                setModalData({message: 'Erro ao realizar o login!'});
+                setModalStatus(true)
             }
 
         } catch (error) {
             console.log(error)
         }
-        
+    }
+
+    function handleCloseModal() {
+        setModalStatus(false);
+    }
+
+    function handleCloseModalAlternative(e) {
+        if(e.target.classList.contains('modalBg')) {
+            setModalStatus(false)
+        }
     }
 
     return (
@@ -83,7 +112,9 @@ export default () => {
                     </ContactArea>
                 </ContentArea>
             </BoxContentArea>
-            
+            <Modal status={modalStatus} close={handleCloseModalAlternative}>
+                <ModalAlert data={modalData} close={handleCloseModal}/>
+            </Modal>
         </Container>
     );
 }

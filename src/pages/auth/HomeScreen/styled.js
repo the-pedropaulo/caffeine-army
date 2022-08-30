@@ -27,6 +27,11 @@ display: flex;
 flex-direction: column;
 align-items: center;
 justify-content: center;
+
+@media (max-width: 780px) {
+    background-color: var(--branco);
+    margin-top: 0px;
+}
 `;
 
 export const BoxTitle = styled.div`
@@ -51,7 +56,7 @@ align-items: center;
 justify-content: center;
 
 @media (max-width: 768px) {
-    width: 140px;
+    width: 70px;
     height: 70px;
 }
 `;
@@ -80,6 +85,9 @@ margin-bottom: 60px;
 
 @media (max-width: 768px) {
     padding-left: 20%;
+    background-color: #f8f8f8;
+    padding-bottom: 0px;
+    padding-top: 40px;
 
 }
 
@@ -107,15 +115,13 @@ export const InfoArea = styled.div`
 display: flex;
 flex-direction: column;
 align-items: center;
+min-width: 100%;
+padding-bottom: 40px;
 
-@media (max-width: 768px) {
-    max-width: 300px;
-}
 `;
 
 export const SectionTitle = styled.h2`
 margin-top: 40px;
 font-size: 18px;
 `;
-
 

@@ -1,25 +1,59 @@
-import React, {} from 'react';
+import React, {useState, useLayoutEffect} from 'react';
 import { Container, Logo,BoxActions, Action} from './styled';
 import LogoutIcon from '@mui/icons-material/Logout';
 import StorefrontIcon from '@mui/icons-material/Storefront';
 
-export default ({search, handleSearch }) => {
-   
+import {useDispatch} from 'react-redux';
+import { useHistory } from 'react-router-dom';
+
+export default () => {
+    const dispatch = useDispatch();
+    const history = useHistory();
+    const [width] = useWindowSize();
+
+    function handleLogoutClick() {
+        dispatch({
+            type: 'LOGOUT'
+        })
+        history.push("/");
+    }
+
+      
+  function useWindowSize() {
+    const [size, setSize] = useState([0, 0]);
+
+    useLayoutEffect(() => {
+
+      function updateSize() {
+        setSize([window.innerWidth, window.innerHeight]);
+      }
+
+      window.addEventListener('resize', updateSize);
+      updateSize();
+      return () => window.removeEventListener('resize', updateSize);
+    }, []);
+
+    return size;
+  }
 
     return ( 
         <Container>
             <Logo src="/assets/logo.svg"></Logo>
             
             <BoxActions>
-                <Action hasStyle={true}>
+                <Action hasStyle={true} isMobile={width > 780 ? false : true}>
                     <StorefrontIcon/>
-                    <p>LOJAS</p>
+                    {width > 780 && (
+                        <p>LOJAS</p>
+                    )}
                 </Action>
 
-                <Action>
+                <Action onClick={handleLogoutClick}  isMobile={width > 780 ? false : true}>
 
                     <LogoutIcon/>
-                    <p>SAIR</p>
+                    {width > 780 && (
+                        <p>SAIR</p>
+                    )}
                 </Action>
             </BoxActions>
             

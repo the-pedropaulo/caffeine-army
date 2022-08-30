@@ -5,8 +5,8 @@ import { useSelector } from 'react-redux';
 
 export default ({children, ...rest}) => {
 
-    const token = useSelector(state => state.user.name);
-    console.log(token)
+    const token = useSelector(state => state.user.token);
+
     const history = useHistory();
 
     if(!token) {

@@ -10,7 +10,7 @@ const Input = ({label, placeholder, searchInput, paddingLeft, error, ...rest}, r
             }
             <InputField placeholder={placeholder} paddingLeft={paddingLeft} ref={ref}
           {...rest}/> 
-            {error && <span>{error.message}</span>}
+            {error && <span style={{color: 'red', marginTop: '10px'}}>{error.message}</span>}
         </Container>
     );
 }

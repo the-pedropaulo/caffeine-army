@@ -32,7 +32,7 @@ flex-direction: column;
 justify-content: center;
 align-items: center;
 background-color: #F8F8F8;
-margin-bottom: -35px;
+margin-bottom: ${props => props.isMobile ? '0' : '-35px'};
 padding: 20px 0;
 border-top-left-radius: 15px;
 border-top-right-radius: 15px;

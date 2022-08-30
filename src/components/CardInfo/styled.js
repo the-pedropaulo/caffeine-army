@@ -5,6 +5,8 @@ export const Container = styled.div`
 width:100%;
 max-width: 1000px;
 margin-bottom: 20px;
+display: ${props => props.isDescription ? 'flex' : ''};
+flex-wrap: ${props => props.isDescription ? 'wrap' : ''};
 
 `;
 
@@ -14,6 +16,11 @@ background-color: var(--branco);
 padding: 25px 0px 25px 20px;
 border-bottom-left-radius: 15px;
 border-bottom-right-radius: 15px;
+
+@media (max-width: 768px) {
+    background-color: #f8f8f8;
+
+}
 
 `;
 
@@ -27,7 +34,14 @@ border-top-left-radius: 15px;
 border-top-right-radius: 15px;
 display: flex;
 justify-content: space-between;
+
+@media (max-width: 768px) {
+    background-color: transparent;
+
+}
 `;
+
+
 
 export const Title = styled.h2`
 font-size: 18px;
@@ -35,4 +49,8 @@ font-size: 18px;
 
 export const Arrow = styled.img`
 margin-right: 10px;
+
+@media (max-width: 768px) {
+    margin-right: 40px;
+}
 `;

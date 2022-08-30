@@ -1,10 +1,10 @@
 import React from 'react';
 import { Container, ContentBox, BoxTitle,Title, Arrow} from './styled';
 
-export default ({children, title}) => {
+export default ({children, title, isDescription}) => {
 
     return (
-      <Container>
+      <Container isDescription={isDescription}>
         {title && (
         <BoxTitle>
           <Title>{title}</Title>

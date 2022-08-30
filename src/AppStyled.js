@@ -24,22 +24,22 @@ background-size: cover;
 width: 50%;
 @media (max-width: 768px) {
     width: 100%;
-    height: 20%;
+    height: 26%;
 }
 `;
 export const PageBody = styled.div`
 display: flex;
-// background-color: #00980d;
-// background-image: url('/assets/bg.png');
 flex: 1;
 overflow-y: auto;
+
 `;
 
 export const HomeBody = styled.div`
 display: flex;
 flex: 1;
 background-color: #f8f8f8;
-overflow-y: auto
+overflow-y: auto;
+overflow-x: hidden;
 `;
 
 

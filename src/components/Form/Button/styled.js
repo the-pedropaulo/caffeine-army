@@ -19,7 +19,9 @@ border: none;
 outline: none;
 color: var(--branco);
 border-radius: 4px;
-font-size: 16px;
+font-size: 18px;
+font-weight: bold;
+cursor: pointer;
 
 @media (max-width: 768px) {
     background-color:  ${props => props.isSearch ? 'var(--desativado)' : "var(--rosa)"};;

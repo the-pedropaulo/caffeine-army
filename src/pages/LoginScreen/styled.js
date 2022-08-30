@@ -29,10 +29,14 @@ export const Logo = styled.img`
 height: 40px;
 width: 100%;
 margin-bottom: 90px;
+@media (max-width: 768px) {
+margin-bottom: 30px;
+}
 `;
 
 export const Title = styled.h3`
 font-size: 22px;
+margin-top: 0;
 @media (max-width: 768px) {
 display: none;
 }
@@ -47,9 +51,12 @@ width: 100%;
 
 export const ContactArea = styled.div`
 font-size: 12px;
-margin-top: 300px;
+margin-top: 250px;
 text-align: center;
 max-width: 300px;
+color: var(--desativado);
+
+letter-spacing: 1px;
 @media (max-width: 768px) {
     display: none;
 }

@@ -3,14 +3,8 @@ import {Container, ModalBody} from './styled';
 
 export default ({status, close, children}) => {
 
-    function handleCloseModal(e) {
-        if(e.target.classList.contains('modalBg')) {
-            close(false)
-        }
-    }
-
     return (
-        <Container status={status} onClick={handleCloseModal} className="modalBg">
+        <Container status={status} onClick={(e) => close(e)} className="modalBg">
             <ModalBody>
                 {children}
             </ModalBody>
