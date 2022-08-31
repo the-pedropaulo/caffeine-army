@@ -40,6 +40,30 @@ export default () => {
     const [modalStatus, setModalStatus] = useState(false);
     const [modalData, setModalData] = useState({});
 
+    function handleGetEnterprise() {
+        if(search !== '') {
+            (async () => {
+            
+                const formatSearch = search.replaceAll(".", "");
+                const midFormatSearch = formatSearch.replaceAll("/", "");
+                const lastFormatSearch = midFormatSearch.replaceAll("-", "");
+
+                const products_response = await api.getEnterprise(lastFormatSearch, token);
+                
+                if(products_response !== undefined) {
+                    setEnterprise(products_response)
+                } else {
+                    setModalData({message: 'Erro ao realizar consulta!'});
+                    setModalStatus(true)
+                }
+
+                setSearch('') 
+            })()
+        } else {
+            return;
+        }
+    }
+
     useEffect(() => {
         clearTimeout(searchTimer)
         if(search !== '') {
@@ -53,17 +77,15 @@ export default () => {
                     const products_response = await api.getEnterprise(lastFormatSearch, token);
                     
                     if(products_response !== undefined) {
-                        console.log(products_response)
                         setEnterprise(products_response)
                     } else {
-                        console.log(products_response, 'aqui')
                         setModalData({message: 'Erro ao realizar consulta!'});
                         setModalStatus(true)
                     }
     
                     setSearch('') 
                 })()
-            }, 2000)
+            }, 5000)
         } else {
             return;
         }
@@ -116,7 +138,7 @@ export default () => {
                                 onKeyPress={handleMaskCPF}
                             />
                         </SearchArea>
-                        <Button text={width < 780 ? '' : 'Buscar loja'} height={"58px"} width={'200px'} isSearch={'75px'}/>
+                        <Button text={width < 780 ? '' : 'Buscar loja'} height={"58px"} width={'200px'} isSearch={'75px'} onClick={handleGetEnterprise}/>
                     </BoxSearchArea>
 
                     <BoxTitle>
